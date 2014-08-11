@@ -29,6 +29,10 @@ assets = Environment(app)
 assets.register('js_all', js)
 assets.register('css_all', css)
 
+@app.context_processor
+def environ():
+    return dict(environ=cfg.get('environ'))
+
 
 @app.route('/_status')
 @utils.service_unavailable_on_connection_error

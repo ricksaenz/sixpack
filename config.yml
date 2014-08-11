@@ -1,14 +1,15 @@
-enabled: True
+redis_port: 6379                        # Redis port
+redis_host: localhost                   # Redis host
+redis_prefix: sixpack_dev               # all Redis keys will be prefixed with this
+redis_db: 15                            # DB number in redis
 
-redis_port: 6379
-redis_host: localhost
-redis_prefix: sxp
-redis_db: 15
+enable_whiplash: False                  # Enable the whiplash/multi-armed bandit alternative algorithm
 
-enable_whiplash: False
-
+# The regex to match for robots
 robot_regex: $^|trivial|facebook|MetaURI|butterfly|google|amazon|goldfire|sleuth|xenu|msnbot|SiteUptime|Slurp|WordPress|ZIBB|ZyBorg|pingdom|bot|yahoo|slurp|java|fetch|spider|url|crawl|oneriot|abby|commentreader|twiceler
-ignored_ip_addresses: []
+ignored_ip_addresses: []                # List of IP
 
-asset_path: gen
-secret_key: '<your secret key here>'
+asset_path: gen                         # Path for compressed assets to live. This path is RELATIVE to sixpack/static
+secret_key: 'secretkey_dev'    # Random key (any string is valid, required for sixpack-web to run)
+
+environ: development
