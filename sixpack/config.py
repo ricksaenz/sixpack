@@ -30,6 +30,7 @@ else:
         'ignored_ip_addresses':os.environ.get('SIXPACK_CONFIG_IGNORE_IPS', "").split(","),
         'asset_path':os.environ.get('SIXPACK_CONFIG_ASSET_PATH', "gen"),
         'secret_key':os.environ.get('SIXPACK_CONFIG_SECRET', 'temp'),
+        'environment':os.environ.get('SIXPACK_ENVIRONMENT', 'production')
     }
 
     if 'SIXPACK_CONFIG_REDIS_SENTINELS' in os.environ:

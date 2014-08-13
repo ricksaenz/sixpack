@@ -30,6 +30,16 @@ assets.register('js_all', js)
 assets.register('css_all', css)
 
 
+@app.context_processor
+def banner_css():
+    banner_css = "navbar-inner-"+cfg.get('environment')
+    return {'banner_css':banner_css} 
+
+
+@app.context_processor
+def environment():
+    return {'environment':cfg.get('environment')}
+
 @app.route('/_status')
 @utils.service_unavailable_on_connection_error
 def status():

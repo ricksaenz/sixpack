@@ -39,6 +39,9 @@
     border: none;
     box-shadow: 0 1px 4px rgba(0, 0, 0, .5);
   }
+  .navbar-inner-development {
+    background-color: rgb(206, 96, 91) !important;
+  }	
   .navbar-inner {
     height: 56px
   }
