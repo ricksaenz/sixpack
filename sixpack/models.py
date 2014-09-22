@@ -308,6 +308,17 @@ class Experiment(object):
 
         return chosen_alternative
 
+    def set_alternative(self, client, alternative=None, dt=None):
+        """
+          Forces an alternative on this experiment for this client
+        """
+        if self.is_archived():
+            return self.control
+        chosen_alternative = self.existing_alternative(client)
+        if not chosen_alternative:
+          alternative.record_participation(client, dt=dt)
+        return alternative
+
     def exclude_client(self, client):
         key = _key("e:{0}:excluded".format(self.name))
         self.redis.setbit(key, self.sequential_id(client), 1)

@@ -7,7 +7,8 @@ def participate(experiment, alternatives, client_id,
     traffic_fraction=None,
     alternative=None,
     datetime=None,
-    redis=None):
+    redis=None,
+    override=None):
 
     exp = Experiment.find_or_create(experiment, alternatives, traffic_fraction=traffic_fraction, redis=redis)
 
@@ -18,6 +19,9 @@ def participate(experiment, alternatives, client_id,
         alt = exp.control
     elif exp.winner is not None:
         alt = exp.winner
+    elif override and override in alternatives:
+        client = Client(client_id, redis=redis)
+        alt = exp.set_alternative(client, alternative=override, dt=datetime)
     else:
         client = Client(client_id, redis=redis)
         alt = exp.get_alternative(client, alternative=alternative, dt=datetime)
