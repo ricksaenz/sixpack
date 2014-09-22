@@ -17,6 +17,7 @@
           </div>
     <% } %>
     <div class="created-at">created: <%= experiment.created_at %> | traffic fraction: <%= experiment.traffic_fraction %></div>
+
     <div class="controls">
 
       <form action="{{ url_for('toggle_experiment_archive', experiment_name=experiment.name) }}" method="post">

@@ -93,7 +93,11 @@ class Experiment(object):
 
     @property
     def created_at(self):
-        return self.redis.hget(self.key(), 'created_at')
+        # Note: the split here is to correctly format legacy dates
+        try:
+            return self.redis.hget(self.key(), 'created_at').split('.')[0]
+        except (AttributeError) as e:
+            return None
 
     def get_alternative_names(self):
         return [alt.name for alt in self.alternatives]
