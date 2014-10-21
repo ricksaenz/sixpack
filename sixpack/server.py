@@ -128,6 +128,9 @@ class Sixpack(object):
         client_chosen_alt = request.args.get('alternative', None)
         override = request.args.get('override', None)
 
+        print >> sys.stderr, override
+        sys.stderr.flush()
+
         if client_id is None or experiment_name is None or alts is None:
             return json_error({'message': 'missing arguments'}, request, 400)
 

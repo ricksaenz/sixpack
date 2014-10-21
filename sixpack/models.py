@@ -3,6 +3,7 @@ from math import log
 import operator
 import random
 import re
+import sys
 
 from config import CONFIG as cfg
 from db import _key, msetbit, sequential_id, first_key_with_bit_set
@@ -294,6 +295,8 @@ class Experiment(object):
           2. A client-chosen alternative
           3. A server-chosen alternative
         """
+        print >> sys.stderr, 'get_alternative'
+        sys.stderr.flush()
         if self.is_archived():
             return self.control
 
@@ -310,14 +313,17 @@ class Experiment(object):
 
     def set_alternative(self, client, alternative=None, dt=None):
         """
-          Forces an alternative on this experiment for this client
+          Forces an alternative on this experiment for this client and records participation
         """
+        print >> sys.stderr, 'set_alternative'
+        sys.stderr.flush()
         if self.is_archived():
             return self.control
         chosen_alternative = self.existing_alternative(client)
         if not chosen_alternative:
-          alternative.record_participation(client, dt=dt)
-        return alternative
+            chosen_alternative, participate = Alternative(alternative, self, redis=self.redis), False
+            chosen_alternative.record_participation(client, dt=dt)
+        return chosen_alternative
 
     def exclude_client(self, client):
         key = _key("e:{0}:excluded".format(self.name))

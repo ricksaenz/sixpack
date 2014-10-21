@@ -1,5 +1,6 @@
 from models import Experiment, Alternative, Client
 from config import CONFIG as cfg
+import sys
 
 
 def participate(experiment, alternatives, client_id,
@@ -11,7 +12,8 @@ def participate(experiment, alternatives, client_id,
     override=None):
 
     exp = Experiment.find_or_create(experiment, alternatives, traffic_fraction=traffic_fraction, redis=redis)
-
+    print >> sys.stderr, 'participate'
+    sys.stderr.flush()
     alt = None
     if force and force in alternatives:
         alt = Alternative(force, exp, redis=redis)
